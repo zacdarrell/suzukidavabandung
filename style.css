@@ -1,0 +1,1474 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+/* Styling Navbar Utama */
+.navbar {
+    background-color: #5D8AA8; /* Warna biru khas Suzuki */
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+/* Logo */
+
+.nav-logo {
+    height: 80px;
+    width: 100px;
+}
+
+
+.nav-logo img {
+    height: 100%;
+    width: 100%;
+}
+
+/* Menu List */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-links {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-links:hover {
+    color: #D11919; /* Aksen merah */
+}
+
+/* Styling Dropdown Produk */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    list-style: none;
+    min-width: 180px;
+    display: none; /* Sembunyikan default */
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdown-menu li a {
+    color: #333333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+    color: #D11919;
+}
+
+/* Tampilkan Dropdown saat Hover (Desktop) */
+@media (min-width: 961px) {
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+/* Tombol WhatsApp */
+.btn-whatsapp {
+    background-color: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s ease;
+    margin-left: 10px;
+}
+
+.btn-whatsapp:hover {
+    background-color: #20ba5a;
+}
+
+/* Burger Menu Toggle (Mobile) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+}
+
+/* --- Responsive Web Design (Mobile Menu) --- */
+@media screen and (max-width: 960px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 80px;
+        left: -100%;
+        flex-direction: column;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: #5D8AA8;
+        transition: all 0.5s ease;
+        align-items: flex-start;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-item {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .nav-links {
+        width: 100%;
+        padding: 15px 0;
+        font-size: 18px;
+    }
+
+    /* Modifikasi Dropdown untuk Mobile klik */
+    .dropdown-menu {
+        position: relative;
+        top: 0;
+        background-color: #001f42;
+        box-shadow: none;
+        width: 100%;
+        padding-left: 15px;
+    }
+    
+    .dropdown-menu li a {
+        color: #e0e0e0;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .btn-whatsapp {
+        margin-left: 0;
+        margin-top: 15px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Animasi Burger jadi 'X' saat Aktif */
+    .menu-toggle.is-active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.is-active .bar:nth-child(1) {
+        transform: translateY(11px) rotate(45deg);
+    }
+    .menu-toggle.is-active .bar:nth-child(3) {
+        transform: translateY(-11px) rotate(-45deg);
+    }
+}
+
+/* Styling Slider Beranda */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Tinggi slider di desktop (70% dari tinggi layar) */
+    overflow: hidden;
+    background-color: #000;
+}
+
+.slider-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Durasi animasi transisi memudar */
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Memastikan gambar memenuhi area tanpa merusak rasio */
+    object-position: center;
+}
+
+/* Indikator Titik (Dots) */
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: #ffffff;
+    width: 25px; /* Efek memanjang untuk dot yang aktif */
+    border-radius: 5px;
+}
+
+/* --- Responsive untuk Tampilan Mobile --- */
+@media screen and (max-width: 768px) {
+    .hero-slider {
+        height: 90vh; /* Tinggi slider diperkecil di mobile agar proporsional */
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .dot.active {
+        width: 18px;
+    }
+}
+
+/* --- Styling Halaman Detail Produk --- */
+.product-section {
+    padding: 80px 20px;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.product-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Membagi desktop menjadi 2 kolom */
+    gap: 50px;
+    align-items: center;
+}
+
+/* Sisi Gambar */
+.product-image {
+    position: relative;
+    width: 100%;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.badge-price {
+    position: absolute;
+    bottom: -15px;
+    right: 20px;
+    background-color: #D11919; /* Merah aksen suzuki */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(209, 25, 25, 0.4);
+}
+
+/* Sisi Spesifikasi */
+.spec-title {
+    font-size: 36px;
+    color: #002C5B;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.spec-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.spec-table {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.spec-row {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 15px;
+}
+
+.spec-label {
+    color: #333;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.spec-label i {
+    color: #002C5B;
+    width: 20px;
+    text-align: center;
+}
+
+.spec-value {
+    color: #666;
+    text-align: right;
+    max-width: 60%;
+}
+
+/* Tombol Aksi */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #20ba5a;
+}
+
+/* --- KONFIGURASI ANIMASI SCROLL --- */
+.scroll-animate {
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); /* Efek easing yang smooth */
+}
+
+/* Kondisi Awal Semula (Terlempar ke kiri/kanan/bawah) */
+.animate-left {
+    transform: translateX(-80px);
+}
+
+.animate-right {
+    transform: translateX(80px);
+}
+
+/* Kondisi Saat Class 'show' Dipicu Javascript */
+.scroll-animate.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- Tampilan Mobile Responsif --- */
+@media screen and (max-width: 960px) {
+    .product-section {
+        padding: 50px 15px;
+    }
+    
+    .product-container {
+        grid-template-columns: 1fr; /* Berubah menjadi 1 kolom di HP */
+        gap: 40px;
+    }
+
+    .spec-title {
+        font-size: 28px;
+    }
+
+    .spec-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .spec-value {
+        text-align: left;
+        max-width: 100%;
+        padding-left: 30px;
+    }
+    
+    /* Ganti geser menyamping jadi geser keatas tipis agar rapi di layar HP */
+    .animate-left, .animate-right {
+        transform: translateY(40px);
+    }
+}
+
+/* --- Tambahan Styling Khusus Suzuki XL7 --- */
+.xl7-bg {
+    background-color: #f9f9f9; /* Warna latar belakang sedikit abu-abu agar kontras dengan section sebelumnya */
+}
+
+/* Membalik posisi: teks di kiri, gambar di kanan khusus layar komputer */
+@media (min-width: 961px) {
+    .product-container.reverse-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+    .product-container.reverse-layout .product-spec {
+        order: 1;
+    }
+    .product-container.reverse-layout .product-image {
+        order: 2;
+    }
+}
+
+/* --- VARIASI ANIMASI BARU UNTUK XL7 --- */
+/* Kondisi awal dilempar ke bawah */
+.animate-bottom {
+    transform: translateY(80px);
+}
+
+/* Kondisi awal samar tanpa pergeseran */
+.animate-fade {
+    transform: scale(0.95);
+}
+
+/* Ketika class 'show' aktif dipicu Javascript */
+.scroll-animate.animate-bottom.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-animate.animate-fade.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Penyesuaian ikon khusus warna ramah lingkungan */
+.spec-label i.fa-leaf {
+    color: #25D366;
+}
+
+
+/* --- Tambahan Styling Khusus Suzuki Jimny (Dark Mode) --- */
+.jimny-dark-bg {
+    background-color: #121212; /* Warna latar belakang hitam arang premium */
+    color: #ffffff;
+}
+
+.title-light {
+    color: #ffffff !important;
+}
+
+.text-muted {
+    color: #aaaaaa !important;
+}
+
+/* Modifikasi tabel spesifikasi khusus tema gelap */
+.table-dark-mode .spec-row {
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.label-light {
+    color: #ffffff !important;
+}
+
+.label-light i {
+    color: #e5c100 !important; /* Mengubah warna ikon menjadi emas/kuning khas petualang */
+}
+
+.value-light {
+    color: #cccccc !important;
+}
+
+/* Badge harga khusus Jimny */
+.badge-jimny {
+    background-color: #e5c100 !important;
+    color: #000000 !important;
+    box-shadow: 0 4px 15px rgba(229, 193, 0, 0.3) !important;
+}
+
+/* Tombol WA Premium khusus unit Jimny */
+.btn-jimny-wa {
+    background-color: #e5c100 !important;
+    color: #000000 !important;
+}
+
+.btn-jimny-wa:hover {
+    background-color: #cdac00 !important;
+}
+
+/* --- VARIASI ANIMASI MASUK BARU UNTUK JIMNY --- */
+/* 1. Efek Zoom In */
+.animate-zoom {
+    transform: scale(0.7);
+    opacity: 0;
+}
+
+/* 2. Efek Naik Ke atas (Slide Up) */
+.animate-up {
+    transform: translateY(60px);
+    opacity: 0;
+}
+
+/* Memicu transisi ketika class 'show' aktif via JS */
+.scroll-animate.animate-zoom.show {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.scroll-animate.animate-up.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Penyesuaian responsif mobile untuk tema gelap */
+@media screen and (max-width: 960px) {
+    .table-dark-mode .spec-value {
+        padding-left: 30px;
+    }
+}
+
+/* --- Tambahan Styling Khusus Suzuki Grand Vitara --- */
+.vitara-bg {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%); /* Efek gradasi mewah */
+}
+
+.vitara-title {
+    color: #0A1931; /* Warna navy gelap premium */
+}
+
+.vitara-table .spec-label i {
+    color: #0A1931; /* Menyelaraskan warna ikon */
+}
+
+/* Badge harga khusus Grand Vitara */
+.badge-vitara {
+    background-color: #0A1931 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(10, 25, 49, 0.3) !important;
+}
+
+/* Tombol WA khusus Grand Vitara */
+.btn-vitara-wa {
+    background-color: #0A1931 !important;
+    color: #ffffff !important;
+}
+
+.btn-vitara-wa:hover {
+    background-color: #15305B !important;
+}
+
+/* --- VARIASI ANIMASI BARU (DIAGONAL SLIDE-UP) --- */
+/* Kondisi Awal: Terlempar ke bawah-kiri */
+.animate-diagonal-left {
+    transform: translate(-50px, 50px);
+    opacity: 0;
+}
+
+/* Kondisi Awal: Terlempar ke bawah-kanan */
+.animate-diagonal-right {
+    transform: translate(50px, 50px);
+    opacity: 0;
+}
+
+/* Memicu transisi ketika class 'show' aktif dipicu Javascript */
+.scroll-animate.animate-diagonal-left.show,
+.scroll-animate.animate-diagonal-right.show {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+/* Penyesuaian responsif mobile agar animasi tidak berantakan di layar kecil */
+@media screen and (max-width: 960px) {
+    .animate-diagonal-left, .animate-diagonal-right {
+        transform: translateY(40px); /* Kembali ke slide-up vertikal standar jika di HP */
+    }
+}
+
+
+/* --- Tambahan Styling Khusus Suzuki S-Presso --- */
+.spresso-bg {
+    background-color: #ffffff;
+    perspective: 1000px; /* Diperlukan untuk memberikan efek 3D saat animasi flip */
+}
+
+.spresso-title {
+    color: #FF5722; /* Warna jingga vibrant khas S-Presso */
+}
+
+.spresso-table .spec-label i {
+    color: #FF5722; /* Menyelaraskan warna ikon tabel */
+}
+
+/* Badge harga khusus S-Presso */
+.badge-spresso {
+    background-color: #FF5722 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4) !important;
+}
+
+/* Tombol WhatsApp khusus S-Presso */
+.btn-spresso-wa {
+    background-color: #FF5722 !important;
+    color: #ffffff !important;
+}
+
+.btn-spresso-wa:hover {
+    background-color: #E64A19 !important;
+}
+
+/* --- VARIASI ANIMASI BARU (FLIP-IN HORIZONTAL) --- */
+/* Kondisi Awal: Terbalik 90 derajat secara horizontal dan tidak terlihat */
+.animate-flip {
+    transform: rotateY(-90deg);
+    opacity: 0;
+    transform-origin: center;
+    backface-visibility: hidden;
+}
+
+/* Memicu transisi ketika class 'show' aktif dipicu Javascript */
+.scroll-animate.animate-flip.show {
+    transform: rotateY(0deg);
+    opacity: 1;
+}
+
+/* Penyesuaian responsif mobile */
+@media screen and (max-width: 960px) {
+    /* Matikan efek flip ekstrem di HP agar proses render browser lebih ringan */
+    .animate-flip {
+        transform: translateY(30px) rotateY(0deg);
+    }
+    
+    .scroll-animate.animate-flip.show {
+        transform: translateY(0) rotateY(0deg);
+    }
+}
+
+/* --- Custom Styling for Suzuki Carry Pick Up --- */
+.carry-bg {
+    background-color: #f5f7fa; /* Clean metallic light-gray background */
+    border-top: 1px solid #e1e8ed;
+}
+
+.carry-title {
+    color: #1a252c; /* Deep charcoal professional color */
+}
+
+.carry-table .spec-label i {
+    color: #1a252c; /* Align icon color with theme */
+}
+
+/* Custom price badge for Carry */
+.badge-carry {
+    background-color: #1a252c !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(26, 37, 44, 0.3) !important;
+}
+
+/* WhatsApp button customized for Carry commercial segment */
+.btn-carry-wa {
+    background-color: #1a252c !important;
+    color: #ffffff !important;
+}
+
+.btn-carry-wa:hover {
+    background-color: #2c3e4a !important;
+}
+
+/* --- NEW VARIATION ANIMATION (DRIVE-IN SLIDE EFFECT) --- */
+/* Initial State: Shifted far right and hidden */
+.animate-drive-in {
+    transform: translateX(120px);
+    opacity: 0;
+}
+
+/* When the 'show' class is triggered via JavaScript */
+.scroll-animate.animate-drive-in.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Responsive adjustments for mobile layouts */
+@media screen and (max-width: 960px) {
+    .animate-drive-in {
+        transform: translateY(40px); /* Switch to standard slide-up on mobile devices for better readability */
+    }
+}
+
+/* --- Custom Styling for Suzuki APV Arena --- */
+.apv-bg {
+    background-color: #ffffff;
+    border-top: 1px solid #f0f0f0;
+}
+
+.apv-title {
+    color: #004080; /* Classic dark royal blue */
+}
+
+.apv-table .spec-label i {
+    color: #004080; /* Match icon colors */
+}
+
+/* Custom price badge for APV */
+.badge-apv {
+    background-color: #004080 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 64, 128, 0.3) !important;
+}
+
+/* WhatsApp button customized for APV */
+.btn-apv-wa {
+    background-color: #004080 !important;
+    color: #ffffff !important;
+}
+
+.btn-apv-wa:hover {
+    background-color: #002d59 !important;
+}
+
+/* --- NEW VARIATION ANIMATION (SCALE-UP BLUR & SMOOTH LEFT) --- */
+/* Initial State: Tiny scale, blurred, and hidden */
+.animate-scale-blur {
+    transform: scale(0.85);
+    filter: blur(10px);
+    opacity: 0;
+    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Initial State: Shifted left smoothly */
+.animate-left-smooth {
+    transform: translateX(-50px);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Triggered State via Intersection Observer JavaScript */
+.scroll-animate.animate-scale-blur.show {
+    transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
+}
+
+.scroll-animate.animate-left-smooth.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Mobile responsive adjustments */
+@media screen and (max-width: 960px) {
+    .animate-left-smooth {
+        transform: translateY(40px); /* Seamless slide-up stack on mobile viewports */
+    }
+}
+
+/* --- Custom Styling for Suzuki Ertiga --- */
+.ertiga-bg {
+    background-color: #fcfcfd; /* Warm premium off-white tone */
+    border-top: 1px solid #f1f3f5;
+}
+
+.ertiga-title {
+    color: #0b2240; /* Royal navy shade representing family excellence */
+}
+
+.ertiga-table .spec-label i {
+    color: #0b2240; /* Align colors across active icons */
+}
+
+/* Custom price badge for Ertiga */
+.badge-ertiga {
+    background-color: #0b2240 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(11, 34, 64, 0.3) !important;
+}
+
+/* WhatsApp button customized for Ertiga */
+.btn-ertiga-wa {
+    background-color: #0b2240 !important;
+    color: #ffffff !important;
+}
+
+.btn-ertiga-wa:hover {
+    background-color: #051326 !important;
+}
+
+/* --- NEW VARIATION ANIMATION (STRETCHED ZOOM-OUT & SLIDE-UP FADE) --- */
+/* Initial State: Oversized, stretched flat, and transparent */
+.animate-stretch-out {
+    transform: scale(1.15) rotateX(5deg);
+    opacity: 0;
+    transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy smooth elastic easing */
+}
+
+/* Initial State: Standard sleek bottom offset */
+.animate-bottom-fade {
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 1s ease-out;
+}
+
+/* Triggered States activated by the JavaScript Observer */
+.scroll-animate.animate-stretch-out.show {
+    transform: scale(1) rotateX(0deg);
+    opacity: 1;
+}
+
+.scroll-animate.animate-bottom-fade.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Mobile responsive adjustments */
+@media screen and (max-width: 960px) {
+    .animate-stretch-out {
+        transform: translateY(40px) scale(1); /* Safe fallback for high performance on mobile screens */
+    }
+}
+
+/* --- Custom Styling for Simulasi Kredit Form --- */
+.credit-section {
+    padding: 80px 20px;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.credit-container {
+    background-color: #ffffff;
+    max-width: 650px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 44, 91, 0.08);
+}
+
+.credit-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.credit-header h2 {
+    color: #002C5B; /* Main Suzuki Blue */
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.credit-header p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.credit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group label i {
+    color: #002C5B;
+    margin-right: 5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #002C5B;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 44, 91, 0.1);
+}
+
+.form-group select optgroup {
+    font-weight: bold;
+    color: #002C5B;
+    background: #f0f4f8;
+}
+
+.form-group select option {
+    color: #333;
+    background: #fff;
+    padding: 5px;
+}
+
+.btn-submit-kredit {
+    background-color: #25D366; /* WhatsApp Green */
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    margin-top: 10px;
+}
+
+.btn-submit-kredit:hover {
+    background-color: #20ba5a;
+    transform: translateY(-2px);
+}
+
+.btn-submit-kredit:active {
+    transform: translateY(0);
+}
+
+/* --- Mobile Responsive Layout --- */
+@media screen and (max-width: 500px) {
+    .credit-section {
+        padding: 40px 15px;
+    }
+    .credit-container {
+        padding: 25px 20px;
+    }
+    .credit-header h2 {
+        font-size: 24px;
+    }
+}
+
+
+
+/* --- Custom Styling for Trade-In Form --- */
+.tradein-section {
+    padding: 80px 20px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #eef2f5;
+}
+
+.tradein-container {
+    background-color: #ffffff;
+    max-width: 650px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.tradein-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.tradein-header h2 {
+    color: #002C5B;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.tradein-header p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.tradein-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Flex Row handling for cleaner multi-input alignments on Desktop */
+.form-group-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-group-row .form-group {
+    flex: 1;
+}
+
+/* Informative Divider Labels */
+.divider-text {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #D11919; /* Red sub accent indicator */
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 6px;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+.btn-submit-tradein {
+    background-color: #25D366;
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    margin-top: 10px;
+}
+
+.btn-submit-tradein:hover {
+    background-color: #20ba5a;
+    transform: translateY(-2px);
+}
+
+/* --- Mobile Responsive Layout --- */
+@media screen and (max-width: 600px) {
+    .tradein-section {
+        padding: 40px 15px;
+    }
+    .tradein-container {
+        padding: 25px 20px;
+    }
+    .form-group-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* --- Custom Styling for Test Drive Form --- */
+.testdrive-section {
+    padding: 80px 20px;
+    background-color: #f8fafc; /* Crisp, ultra-clean modern backdrop */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #e2e8f0;
+}
+
+.testdrive-container {
+    background-color: #ffffff;
+    max-width: 650px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 44, 91, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.testdrive-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.testdrive-header h2 {
+    color: #002C5B;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.testdrive-header p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.testdrive-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Custom Textarea Handling */
+.form-group textarea {
+    padding: 12px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+    resize: none;
+    font-family: inherit;
+}
+
+.form-group textarea:focus {
+    border-color: #002C5B;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 44, 91, 0.1);
+}
+
+.btn-submit-testdrive {
+    background-color: #25D366;
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    margin-top: 10px;
+}
+
+.btn-submit-testdrive:hover {
+    background-color: #20ba5a;
+    transform: translateY(-2px);
+}
+
+/* --- Mobile Responsive Layout --- */
+@media screen and (max-width: 600px) {
+    .testdrive-section {
+        padding: 40px 15px;
+    }
+    .testdrive-container {
+        padding: 25px 20px;
+    }
+}
+
+
+/* --- Custom Styling for Riwayat Penjualan (Gallery) --- */
+.history-section {
+    padding: 80px 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #f1f5f9;
+}
+
+.history-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.history-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.history-header h2 {
+    color: #002C5B;
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.history-header p {
+    color: #475569;
+    font-size: 15px;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Desktop Grid Configuration: 4 Columns layout */
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* Individual Picture Card Styling */
+.history-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1; /* Keeps images perfectly square */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background-color: #f8fafc;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.history-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* Hover overlay effect (Displays descriptive tags smoothly on desktop hover) */
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 44, 91, 0.85) 0%, rgba(0, 0, 0, 0) 70%);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-overlay span {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Desktop Hover Animations */
+.history-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 44, 91, 0.15);
+}
+
+.history-card:hover img {
+    transform: scale(1.08);
+}
+
+.history-card:hover .card-overlay {
+    opacity: 1;
+}
+
+/* --- MOBILE SPECIFIC PERFORMANCE & DESIGN OVERRIDES --- */
+@media screen and (max-width: 900px) {
+    .history-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 Columns for Tablets */
+        gap: 12px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .history-section {
+        padding: 50px 15px;
+    }
+    
+    .history-header {
+        margin-bottom: 30px;
+    }
+
+    .history-header h2 {
+        font-size: 24px;
+    }
+
+    /* Optimized Mobile Experience: 2 columns grid prevents overly narrow images 
+       and reduces extreme page depth so it feels clean and compact */
+    .history-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .history-card {
+        border-radius: 8px; /* Slightly smaller borders match smaller items */
+    }
+
+    /* Always show a subtle overlay text on mobile since hover states do not exist */
+    .card-overlay {
+        opacity: 1;
+        background: linear-gradient(to top, rgba(0, 44, 91, 0.7) 0%, rgba(0, 0, 0, 0) 50%);
+        padding: 10px;
+    }
+
+    .card-overlay span {
+        font-size: 11px;
+    }
+}
+
+/* --- Custom Styling for Footer Section --- */
+.main-footer {
+    background-color: #051326; /* Ultra-dark navy blue uniform matching Suzuki design profile */
+    color: #cbd5e1;
+    padding-top: 60px;
+    font-size: 14px;
+    border-top: 3px solid #D11919; /* Suzuki Red structural top border indicator */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.footer-block {
+    flex: 1;
+}
+
+.brand-block h3 {
+    color: #ffffff;
+    font-size: 22px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.brand-block p {
+    line-height: 1.6;
+    color: #94a3b8;
+}
+
+.social-block h4 {
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    transition: color 0.3s ease, transform 0.2s ease;
+    width: fit-content;
+}
+
+.social-links a:hover {
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.social-links a i {
+    font-size: 18px;
+    width: 20px;
+}
+
+/* Specific Brand Colors on Link Hovers */
+.social-links a:hover i.fa-instagram { color: #e1306c; }
+.social-links a:hover i.fa-facebook { color: #1877f2; }
+.social-links a:hover i.fa-whatsapp { color: #25d366; }
+
+/* --- Footer Bottom Bar --- */
+.footer-bottom {
+    background-color: #020b14;
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bottom-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.bottom-container p {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.bottom-container strong {
+    color: #94a3b8;
+}
+
+.developer-credit a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.developer-credit a:hover {
+    color: #D11919; /* Highlights AbozaDev profile text on hover links */
+}
+
+/* --- Mobile Viewport Adjustments --- */
+@media screen and (max-width: 768px) {
+    .main-footer {
+        padding-top: 40px;
+    }
+    
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+        padding-bottom: 30px;
+    }
+
+    .bottom-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+}
